@@ -8,7 +8,6 @@ module.exports = {
 };
 
 function create(req, res) {
-    const photoUrl = 'https://will-add-later.com';
     const userId = ObjectId('123456123456123456123456');
 
     const tag = req.swagger.params.tag.value;
@@ -16,10 +15,11 @@ function create(req, res) {
     const description = req.swagger.params.description.value;
     const phone = req.swagger.params.phone.value;
     const email = req.swagger.params.email.value;
+    const image = req.swagger.params.image.value;
 
     console.log('Received request to create service with parameters: ', JSON.stringify({ tag, title, description, phone, email }));
 
-    ServiceService.create({ photoUrl, tag, userId, title, description, phone, email })
+    ServiceService.create({ tag, userId, title, description, phone, email }, image)
         .then(service => {
             res.json(service);
         })

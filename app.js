@@ -1,11 +1,14 @@
 'use strict';
 
 require('dotenv').config();
-global.appRoot = path.resolve(__dirname);
 
-var SwaggerExpress = require('swagger-express-mw');
-var app = require('express')();
+const path = require('path');
+const SwaggerExpress = require('swagger-express-mw');
+const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
+
+global.appRoot = path.resolve(__dirname);
 
 module.exports = app;
 
@@ -15,6 +18,8 @@ var config = {
 
 SwaggerExpress.create(config, async function(err, swaggerExpress) {
   if (err) { throw err; }
+
+  app.use(express.static(path.resolve(__dirname, 'bucket')));
 
   swaggerExpress.register(app);
 
