@@ -44,30 +44,30 @@ paths:
   /service:
     x-swagger-router-controller: service
     post:
+      consumes:
+        - multipart/form-data
       description: Creates new service
       operationId: create
       parameters:
-        - name: service
-          in: body
-          schema:
-            type: object
-            required:
-              - tag
-              - title
-              - description
-              - phone
-              - email
-            properties:
-              tag:
-                type: string
-              title:
-                type: string
-              description:
-                type: string
-              phone:
-                type: string
-              email:
-                type: string
+        - in: formData
+          name: image
+          type: file
+          description: The file to upload.
+        - in: formData
+          name: tag
+          type: string
+        - in: formData
+          name: title
+          type: string
+        - in: formData
+          name: description
+          type: string
+        - in: formData
+          name: phone
+          type: string
+        - in: formData
+          name: email
+          type: string
       responses:
         "200":
           description: Success

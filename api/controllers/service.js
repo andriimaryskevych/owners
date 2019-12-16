@@ -11,7 +11,11 @@ function create(req, res) {
     const photoUrl = 'https://will-add-later.com';
     const userId = ObjectId('123456123456123456123456');
 
-    const { tag, title, description, phone, email } = req.swagger.params.service.value;
+    const tag = req.swagger.params.tag.value;
+    const title = req.swagger.params.title.value;
+    const description = req.swagger.params.description.value;
+    const phone = req.swagger.params.phone.value;
+    const email = req.swagger.params.email.value;
 
     console.log('Received request to create service with parameters: ', JSON.stringify({ tag, title, description, phone, email }));
 
