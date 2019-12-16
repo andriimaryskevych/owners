@@ -4,7 +4,8 @@ const ServiceService = require('../services/ServiceService');
 let ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
-    create: create
+    create: create,
+    getById: getById
 };
 
 function create(req, res) {
@@ -35,4 +36,26 @@ function create(req, res) {
             }
         );
     });
+}
+
+function getById(req, res) {
+    const serviceId = req.swagger.params.id.value;
+
+    console.log('Received requst to get service by id', serviceId);
+
+    ServiceService.getById(serviceId)
+        .then(service => {
+            res.json(service);
+        })
+        .catch(error => {
+            console.error(`Error during getting service: ${error.toString()}`);
+
+            res.status(500).json({
+                data: {
+                    message: 'Failed to create annotation',
+                    error: error.toString(),
+                    code: 7000
+                }
+            });
+        });
 }

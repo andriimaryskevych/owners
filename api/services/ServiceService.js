@@ -14,6 +14,16 @@ class ServiceService {
 
         return service;
     }
+
+    async getById(id) {
+        const service = await Service.findById(id);
+
+        if (!service) {
+            throw new Error('Service not found');
+        }
+
+        return service;
+    }
 }
 
 module.exports = new ServiceService();

@@ -58,16 +58,33 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
+  /service/{id}:
+    x-swagger-router-controller: service
+    get:
+      description: Get service by id
+      operationId: getById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the service to get
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Service"
+        "500":
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
-    properties:
-      message:
-        type: string
   ErrorResponse:
     required:
       - message
