@@ -34,6 +34,7 @@ ServiceSchema.methods = {
     getResource () {
         return {
             id: this.id,
+            userId: this.userId.toString(),
             tag: this.tag,
             photoUrl: this.photoUrl,
             title: this.title,

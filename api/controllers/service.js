@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function create(req, res) {
-    const userId = ObjectId('123456123456123456123456');
+    const userId = req.userId;
 
     const tag = req.swagger.params.tag.value;
     const title = req.swagger.params.title.value;
@@ -22,7 +22,7 @@ function create(req, res) {
 
     console.log('Received request to create service with parameters: ', JSON.stringify({ tag, title, description, phone, email }));
 
-    ServiceService.create({ tag, userId, title, description, phone, email }, image)
+    ServiceService.create({ tag, userId, title, description, phone, email, image })
         .then(service => {
             res.json(service);
         })
@@ -85,7 +85,7 @@ function deleteById(req, res) {
 }
 
 function updateById(req, res) {
-    const userId = ObjectId('123456123456123456123456');
+    const userId = req.userId;
 
     const id = req.swagger.params.id.value;
 
@@ -99,7 +99,7 @@ function updateById(req, res) {
 
     console.log('Received request to update service with parameters: ', JSON.stringify({ tag, title, description, phone, email }));
 
-    ServiceService.updateById(id, { tag, title, description, phone, email }, userId, image)
+    ServiceService.updateById(id, { tag, userId, title, description, phone, email, image })
         .then(service => {
             res.json(service);
         })

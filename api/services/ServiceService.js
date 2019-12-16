@@ -5,8 +5,8 @@ const Service = require('../models/service');
 const FileService = require('./FileService');
 
 class ServiceService {
-    async create ({ tag, userId, title, description, phone, email }, image) {
-        const photoUrl = `${userId}/service/image/${uuid.v4()}/${image.originalname}`;
+    async create ({ tag, userId, title, description, phone, email, image }) {
+        const photoUrl = `${userId.toString()}/service/image/${uuid.v4()}/${image.originalname}`;
         await FileService.saveFile(photoUrl, image.buffer);
 
         const service = new Service({ userId, tag, photoUrl, title, description, phone, email });
@@ -34,7 +34,7 @@ class ServiceService {
         }
     }
 
-    async updateById(id, { tag, title, description, phone, email }, userId, image) {
+    async updateById(id, { tag, title, description, phone, email, userId, image }) {
         let fiedsToUpdate = {};
 
         if (image) {

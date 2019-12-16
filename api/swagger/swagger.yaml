@@ -68,6 +68,8 @@ paths:
   /service/{id}:
     x-swagger-router-controller: service
     get:
+      security:
+        - JWT: []
       description: Get service by id
       operationId: getById
       parameters:
@@ -90,6 +92,8 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
     delete:
+      security:
+        - JWT: []
       description: Delete service by id
       operationId: deleteById
       parameters:
@@ -110,6 +114,8 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
     patch:
+      security:
+        - JWT: []
       consumes:
         - multipart/form-data
       description: Updates service

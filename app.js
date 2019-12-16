@@ -8,6 +8,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const { verify } = require('./api/helpers/jwt');
+const { ObjectId } = mongoose.Types;
 
 global.appRoot = path.resolve(__dirname);
 
@@ -24,7 +25,13 @@ var config = {
       }
 
       try {
-        await verify(authToken);
+        const { userId } = await verify(authToken);
+
+        if (!userId) {
+          throw new Error('Token maleformed');
+        }
+
+        req.userId = new ObjectId(userId);
 
         cb(null);
       } catch (err) {
