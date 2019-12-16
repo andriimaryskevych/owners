@@ -5,7 +5,8 @@ let ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     create: create,
-    getById: getById
+    getById: getById,
+    deleteById: deleteById
 };
 
 function create(req, res) {
@@ -52,7 +53,29 @@ function getById(req, res) {
 
             res.status(500).json({
                 data: {
-                    message: 'Failed to create annotation',
+                    message: 'Failed to get service',
+                    error: error.toString(),
+                    code: 7000
+                }
+            });
+        });
+}
+
+function deleteById(req, res) {
+    const serviceId = req.swagger.params.id.value;
+
+    console.log('Received requst to delete service by id', serviceId);
+
+    ServiceService.deleteById(serviceId)
+        .then(() => {
+            res.status(204).end();
+        })
+        .catch(error => {
+            console.error(`Error during deleting service: ${error.toString()}`);
+
+            res.status(500).json({
+                data: {
+                    message: 'Failed to delete service',
                     error: error.toString(),
                     code: 7000
                 }

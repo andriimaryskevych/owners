@@ -82,6 +82,26 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    delete:
+      description: Delete service by id
+      operationId: deleteById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the service to delete
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '500':
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:

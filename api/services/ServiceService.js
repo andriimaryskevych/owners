@@ -24,6 +24,14 @@ class ServiceService {
 
         return service;
     }
+
+    async deleteById(id) {
+        const deletedService = await Service.findByIdAndDelete(id);
+
+        if (!deletedService) {
+            throw new Error('Could not delete service');
+        }
+    }
 }
 
 module.exports = new ServiceService();
