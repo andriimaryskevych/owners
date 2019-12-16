@@ -7,13 +7,31 @@ const SwaggerExpress = require('swagger-express-mw');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const { verify } = require('./api/helpers/jwt');
 
 global.appRoot = path.resolve(__dirname);
 
 module.exports = app;
 
 var config = {
-  appRoot: __dirname
+  appRoot: __dirname,
+  swaggerSecurityHandlers: {
+    JWT: async function(req, authOrSecDef, scopesOrApiKey, cb) {
+      const authToken = req.headers['authorization'];
+
+      if (!authToken) {
+        cb(new Error('Missing auth header'));
+      }
+
+      try {
+        await verify(authToken);
+
+        cb(null);
+      } catch (err) {
+        cb(err);
+      }
+    }
+  }
 };
 
 SwaggerExpress.create(config, async function(err, swaggerExpress) {

@@ -17,10 +17,17 @@ consumes:
 # format of the responses to the client (Accepts)
 produces:
   - application/json
+securityDefinitions:
+  JWT:
+    type: apiKey
+    name: Authorization
+    in: header
 paths:
   /service:
     x-swagger-router-controller: service
     post:
+      security:
+        - JWT: []
       consumes:
         - multipart/form-data
       description: Creates new service
@@ -145,6 +152,73 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /auth/login:
+    x-swagger-router-controller: auth
+    post:
+      operationId: login
+      description: Login
+      parameters:
+        - in: body
+          name: loginParameters
+          description: Login credentials
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        "500":
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /auth/signup:
+    x-swagger-router-controller: auth
+    post:
+      operationId: signup
+      description: Signup
+      parameters:
+        - in: body
+          name: signUpParameters
+          description: SignUp credentials
+          schema:
+            type: object
+            required:
+              - email
+              - password
+              - phone
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              phone:
+                type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SignUpResponse"
+        "500":
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
@@ -183,3 +257,27 @@ definitions:
             type: string
           code:
             type: number
+  LoginResponse:
+    properties:
+      token:
+        type: string
+  User:
+    properties:
+      id:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      photoUrl:
+        type: string
+      createdAt:
+        type: string
+  SignUpResponse:
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      token:
+        type: string
