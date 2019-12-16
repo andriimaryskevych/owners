@@ -73,6 +73,10 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Service"
+        "500":
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
         default:
           description: Error
           schema:
@@ -111,3 +115,14 @@ definitions:
         type: string
       email:
         type: string
+  Error:
+    properties:
+      data:
+        type: object
+        properties:
+          message:
+            type: string
+          error:
+            type: string
+          code:
+            type: number

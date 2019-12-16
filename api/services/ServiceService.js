@@ -6,11 +6,7 @@ class ServiceService {
     async create ({ photoUrl, tag, userId, title, description, phone, email }) {
         const service = new Service({ userId, tag, photoUrl, title, description, phone, email });
 
-        try {
-            await service.save();
-        } catch (err) {
-            console.log('Failed to create service.', err);
-        }
+        await service.save();
 
         return service;
     }

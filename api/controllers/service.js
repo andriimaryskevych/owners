@@ -19,7 +19,16 @@ function create(req, res) {
         .then(service => {
             res.json(service);
         })
-        .catch(err => {
-            res.err(err);
-        });
+        .catch(error => {
+            console.error(`Error during creating service: ${error.toString()}`);
+
+            res.status(500).json({
+                data: {
+                    message: 'Failed to create annotation',
+                    error: error.toString(),
+                    code: 7000
+                }
+            }
+        );
+    });
 }
