@@ -17,8 +17,6 @@ SwaggerExpress.create(config, async function(err, swaggerExpress) {
 
   swaggerExpress.register(app);
 
-  console.log(process.env.MONGO_CONNECTION_URL);
-
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_URL);
   } catch (err) {

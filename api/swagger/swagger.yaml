@@ -19,7 +19,6 @@ produces:
   - application/json
 paths:
   /hello:
-    # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
     get:
       description: Returns 'Hello' to the caller
@@ -42,6 +41,43 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /service:
+    x-swagger-router-controller: service
+    post:
+      description: Creates new service
+      operationId: create
+      parameters:
+        - name: service
+          in: body
+          schema:
+            type: object
+            required:
+              - tag
+              - title
+              - description
+              - phone
+              - email
+            properties:
+              tag:
+                type: string
+              title:
+                type: string
+              description:
+                type: string
+              phone:
+                type: string
+              email:
+                type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/HelloWorldResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
