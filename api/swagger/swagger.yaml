@@ -72,7 +72,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/HelloWorldResponse"
+            $ref: "#/definitions/Service"
         default:
           description: Error
           schema:
@@ -80,7 +80,6 @@ paths:
 
   /swagger:
     x-swagger-pipe: swagger_raw
-# complex objects have schema definitions
 definitions:
   HelloWorldResponse:
     required:
@@ -93,4 +92,22 @@ definitions:
       - message
     properties:
       message:
+        type: string
+  Service:
+    properties:
+      _id:
+        type: string
+      userId:
+        type: string
+      tag:
+        type: string
+      photoUrl:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      phone:
+        type: string
+      email:
         type: string
