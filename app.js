@@ -1,22 +1,32 @@
 'use strict';
 
+require('dotenv').config();
+
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
+const mongoose = require('mongoose');
+
 module.exports = app;
 
 var config = {
   appRoot: __dirname
 };
 
-SwaggerExpress.create(config, function(err, swaggerExpress) {
+SwaggerExpress.create(config, async function(err, swaggerExpress) {
   if (err) { throw err; }
 
   swaggerExpress.register(app);
 
+  console.log(process.env.MONGO_CONNECTION_URL);
+
+  try {
+    await mongoose.connect(process.env.MONGO_CONNECTION_URL);
+  } catch (err) {
+    console.log('Could not connect to DB');
+
+    process.exit(1);
+  }
+
   var port = process.env.PORT || 10010;
   app.listen(port);
-
-  if (swaggerExpress.runner.swagger.paths['/hello']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
-  }
 });
