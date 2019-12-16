@@ -12,7 +12,7 @@ class ServiceService {
         const service = new Service({ userId, tag, photoUrl, title, description, phone, email });
         await service.save();
 
-        return service;
+        return service.getResource();
     }
 
     async getById(id) {
@@ -22,7 +22,8 @@ class ServiceService {
             throw new Error('Service not found');
         }
 
-        return service;
+        return service.getResource();
+
     }
 
     async deleteById(id) {
@@ -31,6 +32,45 @@ class ServiceService {
         if (!deletedService) {
             throw new Error('Could not delete service');
         }
+    }
+
+    async updateById(id, { tag, title, description, phone, email }, userId, image) {
+        let fiedsToUpdate = {};
+
+        if (image) {
+            let photoUrl = `${userId}/service/image/${uuid.v4()}/${image.originalname}`;
+            await FileService.saveFile(photoUrl, image.buffer);
+
+            fiedsToUpdate.photoUrl = photoUrl;
+        }
+
+        if (tag) {
+            fiedsToUpdate.tag = tag;
+        }
+
+        if (title) {
+            fiedsToUpdate.title = title;
+        }
+
+        if (description) {
+            fiedsToUpdate.description = description;
+        }
+
+        if (phone) {
+            fiedsToUpdate.phone = phone;
+        }
+
+        if (email) {
+            fiedsToUpdate.email = email;
+        }
+
+        const service = await Service.findByIdAndUpdate(id, fiedsToUpdate, { new: true });
+
+        if (!service) {
+            throw new Error('Could not update service');
+        }
+
+        return service.getResource();
     }
 }
 

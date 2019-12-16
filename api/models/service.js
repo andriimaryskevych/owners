@@ -30,4 +30,19 @@ const ServiceSchema = new mongoose.Schema({
     },
 });
 
+ServiceSchema.methods = {
+    getResource () {
+        return {
+            id: this.id,
+            tag: this.tag,
+            photoUrl: this.photoUrl,
+            title: this.title,
+            description: this.description,
+            phone: this.phone,
+            email: this.email,
+            createdAt: this.createdAt
+        };
+    }
+};
+
 exports = module.exports = mongoose.model('Service', ServiceSchema);

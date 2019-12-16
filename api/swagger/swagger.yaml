@@ -102,6 +102,49 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    patch:
+      consumes:
+        - multipart/form-data
+      description: Updates service
+      operationId: updateById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the service to update
+        - in: formData
+          name: image
+          type: file
+          description: The file to upload.
+        - in: formData
+          name: tag
+          type: string
+        - in: formData
+          name: title
+          type: string
+        - in: formData
+          name: description
+          type: string
+        - in: formData
+          name: phone
+          type: string
+        - in: formData
+          name: email
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Service"
+        "500":
+          description: Errot
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
@@ -113,7 +156,7 @@ definitions:
         type: string
   Service:
     properties:
-      _id:
+      id:
         type: string
       userId:
         type: string
