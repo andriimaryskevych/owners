@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+global.appRoot = path.resolve(__dirname);
 
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
