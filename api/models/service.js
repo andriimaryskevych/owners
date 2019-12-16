@@ -25,20 +25,9 @@ const ServiceSchema = new mongoose.Schema({
         type: String
     },
     createdAt: {
-        type: Date
+        type: Date,
+        default: Date.now()
     },
-});
-
-ServiceSchema.pre('save', (next) => {
-    if (this._doc) {
-        const now = new Date();
-
-        if (!this._doc.createdAt) {
-            this._doc.createdAt = now;
-        }
-    }
-
-    next();
 });
 
 exports = module.exports = mongoose.model('Service', ServiceSchema);
