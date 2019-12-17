@@ -21,7 +21,7 @@ var config = {
       const authToken = req.headers['authorization'];
 
       if (!authToken) {
-        cb(new Error('Missing auth header'));
+        return cb(new Error('Missing auth header'));
       }
 
       try {
@@ -33,9 +33,9 @@ var config = {
 
         req.userId = new ObjectId(userId);
 
-        cb(null);
+        return cb(null);
       } catch (err) {
-        cb(err);
+        return cb(err);
       }
     }
   }
