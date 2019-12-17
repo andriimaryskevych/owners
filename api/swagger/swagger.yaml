@@ -58,7 +58,7 @@ paths:
           schema:
             $ref: "#/definitions/Service"
         "500":
-          description: Errot
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -84,7 +84,7 @@ paths:
           schema:
             $ref: "#/definitions/Service"
         "500":
-          description: Errot
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -106,7 +106,7 @@ paths:
         '204':
           description: The resource was deleted successfully.
         '500':
-          description: Errot
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -151,7 +151,142 @@ paths:
           schema:
             $ref: "#/definitions/Service"
         "500":
-          description: Errot
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /post:
+    x-swagger-router-controller: post
+    post:
+      security:
+        - JWT: []
+      consumes:
+        - multipart/form-data
+      description: Creates new post
+      operationId: create
+      parameters:
+        - in: formData
+          name: image
+          type: file
+          description: The file to upload.
+        - in: formData
+          name: tag
+          type: string
+        - in: formData
+          name: title
+          type: string
+        - in: formData
+          name: description
+          type: string
+        - in: formData
+          name: phone
+          type: string
+        - in: formData
+          name: email
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Post"
+        "500":
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /post/{id}:
+    x-swagger-router-controller: post
+    get:
+      security:
+        - JWT: []
+      description: Get post by id
+      operationId: getById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the post to get
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Post"
+        "500":
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      security:
+        - JWT: []
+      description: Delete post by id
+      operationId: deleteById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the post to delete
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '500':
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    patch:
+      security:
+        - JWT: []
+      consumes:
+        - multipart/form-data
+      description: Updates post
+      operationId: updateById
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: String ID of the post to update
+        - in: formData
+          name: image
+          type: file
+          description: The file to upload.
+        - in: formData
+          name: tag
+          type: string
+        - in: formData
+          name: title
+          type: string
+        - in: formData
+          name: description
+          type: string
+        - in: formData
+          name: phone
+          type: string
+        - in: formData
+          name: email
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Post"
+        "500":
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -183,7 +318,7 @@ paths:
           schema:
             $ref: "#/definitions/LoginResponse"
         "500":
-          description: Errot
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -218,7 +353,7 @@ paths:
           schema:
             $ref: "#/definitions/SignUpResponse"
         "500":
-          description: Errot
+          description: Error
           schema:
             $ref: "#/definitions/Error"
         default:
@@ -235,6 +370,24 @@ definitions:
       message:
         type: string
   Service:
+    properties:
+      id:
+        type: string
+      userId:
+        type: string
+      tag:
+        type: string
+      photoUrl:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      phone:
+        type: string
+      email:
+        type: string
+  Post:
     properties:
       id:
         type: string

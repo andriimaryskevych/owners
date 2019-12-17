@@ -52,6 +52,7 @@ SwaggerExpress.create(config, async function(err, swaggerExpress) {
     await mongoose.connect(process.env.MONGO_CONNECTION_URL);
   } catch (err) {
     console.log('Could not connect to DB');
+    console.log(err);
 
     process.exit(1);
   }
