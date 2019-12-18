@@ -5,7 +5,7 @@ const Post = require('../models/post');
 const FileService = require('./FileService');
 
 class PostService {
-    async create ({ tag, userId, title, description, phone, email, image }) {
+    async create ({ userId, title, description, email, image }) {
         const photoUrl = `${userId.toString()}/post/image/${uuid.v4()}/${image.originalname}`;
         await FileService.saveFile(photoUrl, image.buffer);
 
