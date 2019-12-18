@@ -89,17 +89,13 @@ function updateById(req, res) {
 
     const id = req.swagger.params.id.value;
 
-    const tag = req.swagger.params.tag.value;
     const title = req.swagger.params.title.value;
     const description = req.swagger.params.description.value;
-    const phone = req.swagger.params.phone.value;
-    const email = req.swagger.params.email.value;
-
     const image = req.swagger.params.image.value;
 
-    console.log('Received request to update post with parameters: ', JSON.stringify({ tag, title, description, phone, email }));
+    console.log('Received request to update post with parameters: ', JSON.stringify({ title, description }));
 
-    PostService.updateById(id, { tag, userId, title, description, phone, email, image })
+    PostService.updateById(id, { userId, title, description, image })
         .then(post => {
             res.json(post);
         })

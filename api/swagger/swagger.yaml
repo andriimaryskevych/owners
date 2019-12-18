@@ -266,19 +266,10 @@ paths:
           type: file
           description: The file to upload.
         - in: formData
-          name: tag
-          type: string
-        - in: formData
           name: title
           type: string
         - in: formData
           name: description
-          type: string
-        - in: formData
-          name: phone
-          type: string
-        - in: formData
-          name: email
           type: string
       responses:
         "200":
@@ -437,13 +428,13 @@ definitions:
         type: string
       email:
         type: string
+      createdAt:
+        type: string
   Post:
     properties:
       id:
         type: string
       userId:
-        type: string
-      tag:
         type: string
       photoUrl:
         type: string
@@ -451,9 +442,7 @@ definitions:
         type: string
       description:
         type: string
-      phone:
-        type: string
-      email:
+      createdAt:
         type: string
   Error:
     properties:

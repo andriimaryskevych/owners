@@ -6,9 +6,6 @@ const PostSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId
     },
-    tag: {
-        type: String
-    },
     photoUrl: {
         type: String
     },
@@ -16,12 +13,6 @@ const PostSchema = new mongoose.Schema({
         type: String
     },
     description: {
-        type: String
-    },
-    phone: {
-        type: String
-    },
-    email: {
         type: String
     },
     createdAt: {
@@ -35,12 +26,9 @@ PostSchema.methods = {
         return {
             id: this.id,
             userId: this.userId.toString(),
-            tag: this.tag,
             photoUrl: this.photoUrl,
             title: this.title,
             description: this.description,
-            phone: this.phone,
-            email: this.email,
             createdAt: this.createdAt
         };
     }

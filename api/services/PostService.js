@@ -9,7 +9,7 @@ class PostService {
         const photoUrl = `${userId.toString()}/post/image/${uuid.v4()}/${image.originalname}`;
         await FileService.saveFile(photoUrl, image.buffer);
 
-        const post = new Post({ userId, tag, photoUrl, title, description, phone, email });
+        const post = new Post({ userId, photoUrl, title, description, email });
         await post.save();
 
         return post.getResource();
@@ -34,7 +34,7 @@ class PostService {
         }
     }
 
-    async updateById(id, { tag, title, description, phone, email, userId, image }) {
+    async updateById(id, { title, description, userId, image }) {
         let fiedsToUpdate = {};
 
         if (image) {
@@ -44,24 +44,12 @@ class PostService {
             fiedsToUpdate.photoUrl = photoUrl;
         }
 
-        if (tag) {
-            fiedsToUpdate.tag = tag;
-        }
-
         if (title) {
             fiedsToUpdate.title = title;
         }
 
         if (description) {
             fiedsToUpdate.description = description;
-        }
-
-        if (phone) {
-            fiedsToUpdate.phone = phone;
-        }
-
-        if (email) {
-            fiedsToUpdate.email = email;
         }
 
         const post = await Post.findByIdAndUpdate(id, fiedsToUpdate, { new: true });
