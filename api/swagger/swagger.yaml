@@ -401,6 +401,26 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /feed:
+    x-swagger-router-controller: feed
+    get:
+      security:
+        - JWT: []
+      description: Get feed
+      operationId: getFeed
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Feed"
+        "500":
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
@@ -479,3 +499,26 @@ definitions:
         $ref: "#/definitions/User"
       token:
         type: string
+  FeedItem:
+    properties:
+      id:
+        type: string
+      userId:
+        type: string
+      photoUrl:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      createdAt:
+        type: string
+      userPhotoUrl:
+        type: string
+      userName:
+        type: string
+  Feed:
+    type: array
+    items:
+      $ref: '#/definitions/FeedItem'
+
