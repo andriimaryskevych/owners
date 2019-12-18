@@ -360,6 +360,56 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /me:
+    x-swagger-router-controller: user
+    get:
+      security:
+        - JWT: []
+      description: Get personal info
+      operationId: getMyInfo
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+        "500":
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    patch:
+      security:
+        - JWT: []
+      consumes:
+        - multipart/form-data
+      description: Updates personal info
+      operationId: updateMyInfo
+      parameters:
+        - in: formData
+          name: image
+          type: file
+        - in: formData
+          name: name
+          type: string
+        - in: formData
+          name: phone
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+        "500":
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
