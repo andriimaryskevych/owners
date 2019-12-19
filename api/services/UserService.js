@@ -12,7 +12,7 @@ class UserService {
             throw new Error('User not found');
         }
 
-        return user,getResource();
+        return user.getResource();
     }
 
     async updateById(id, { name, phone, image }) {
