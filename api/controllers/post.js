@@ -17,7 +17,7 @@ function create(req, res) {
     const description = req.swagger.params.description.value;
     const image = req.swagger.params.image.value;
 
-    console.log('Received request to create post with parameters: ', JSON.stringify({ tag, title, description }));
+    console.log('Received request to create post with parameters: ', JSON.stringify({ title, description }));
 
     PostService.create({ userId, title, description, image })
         .then(post => {
