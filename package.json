@@ -15,7 +15,7 @@
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",
     "shelljs": "^0.8.3",
-    "swagger-express-mw": "^0.1.0",
+    "swagger-express-mw": "^0.7.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
